@@ -1,0 +1,80 @@
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        
+
+        <div class="col-12 xl:col-6"
+            style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="h-full w-full m-0 py-7 px-4"
+                style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="text-center mb-5">
+                    <img src="assets/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3">
+                    <div class="text-900 text-3xl font-medium mb-3">Créer un compte</div>
+                    <span class="text-600 font-medium">Veuillez remplir les champs suivants</span>
+                </div>
+
+                <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="w-full md:w-10 mx-auto">
+                    <!-- Nom -->
+                    <div class="field">
+                        <label for="nom" class="block text-900 text-xl font-medium mb-2">Nom complet</label>
+                        <input id="nom" name="nom" type="text" [(ngModel)]="user.nom" required pInputText class="w-full"
+                            style="padding:1rem;">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="field">
+                        <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <input id="email" name="email" type="email" [(ngModel)]="user.email" required pInputText
+                            class="w-full" style="padding:1rem;">
+                    </div>
+
+                    <!-- Type utilisateur -->
+                    <div class="field">
+                        <label class="block text-900 text-xl font-medium mb-2">Type d'utilisateur</label>
+                        <div class="flex gap-5">
+                            <div class="flex align-items-center">
+                                <p-radioButton name="type" inputId="etudiant" value="etudiant" [(ngModel)]="user.type"
+                                    required></p-radioButton>
+                                <label for="etudiant" class="ml-2">Étudiant</label>
+                            </div>
+                            <div class="flex align-items-center">
+                                <p-radioButton name="type" inputId="enseignant" value="enseignant"
+                                    [(ngModel)]="user.type" required></p-radioButton>
+                                <label for="enseignant" class="ml-2">Enseignant</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mot de passe -->
+                    <div class="field">
+                        <label for="password" class="block text-900 text-xl font-medium mb-2">Mot de passe</label>
+                        <p-password id="password" name="password" [(ngModel)]="user.password" required
+                            [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full"></p-password>
+                    </div>
+
+                    <!-- Confirmation -->
+                    <div class="field">
+                        <label for="confirmPassword" class="block text-900 text-xl font-medium mb-2">Confirmer le mot de
+                            passe</label>
+                        <p-password id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required
+                            [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full"></p-password>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-center mt-4">
+                        <button pButton pRipple type="submit" label="S'inscrire"
+                            class="p-button-success p-button-rounded w-full p-3 text-xl"></button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <span class="text-600">Vous avez déjà un compte ?</span>
+                        <a routerLink="/auth/login" class="font-medium no-underline ml-2 cursor-pointer"
+                            style="color: var(--primary-color)">
+                            Se connecter
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

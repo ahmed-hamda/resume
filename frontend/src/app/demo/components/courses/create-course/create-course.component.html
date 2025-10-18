@@ -1,0 +1,32 @@
+<div class="surface-card p-5 border-round shadow-3 w-full lg:w-6 mx-auto mt-5">
+  <h2>Create Course</h2>
+  <div class="p-fluid">
+    <!-- Titre (inchangé) -->
+    <div class="field">
+      <label for="titre">Course Title</label>
+      <input id="titre" type="text" pInputText [(ngModel)]="titre" placeholder="Enter course title" />
+    </div>
+
+    <!-- Catégorie (nouveau, même style) -->
+    <div class="field">
+      <label for="category">Category</label>
+      <p-dropdown
+        id="category"
+        [options]="categories"
+        optionLabel="name"
+        optionValue="id"
+        [(ngModel)]="category_id"
+        placeholder="Choose a category">
+      </p-dropdown>
+    </div>
+
+    <!-- Image personnalisée (optionnel, même style) -->
+    <div class="field">
+      <label for="imageUrl">Custom Image URL (optional)</label>
+      <input id="imageUrl" type="text" pInputText [(ngModel)]="image_url"
+             placeholder="Leave empty to use category image" />
+    </div>
+
+    <button pButton label="Create" (click)="createCourse()" class="mt-3"></button>
+  </div>
+</div>

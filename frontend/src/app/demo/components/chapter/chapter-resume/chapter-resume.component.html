@@ -1,0 +1,28 @@
+<div class="card resume-card">
+  <h2 class="title">📖 Résumé du chapitre</h2>
+
+  <p-button class="regen-btn" [label]="regenLoading ? 'Régénération…' : 'Régénérer'" icon="pi pi-refresh"
+    [disabled]="regenLoading || loading" (onClick)="regenerate()">
+  </p-button>
+
+  <p *ngIf="loading" class="muted">Chargement du résumé…</p>
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+
+  <markdown *ngIf="!loading && resumeText" class="markdown-body" [data]="resumeText">
+  </markdown>
+
+  <div class="actions" *ngIf="resumeText">
+    <p-button icon="pi pi-copy" label="Copier" (onClick)="copy()"></p-button>
+    <p-button class="p-button-secondary" icon="pi pi-download" label="Télécharger .md"
+      (onClick)="download()"></p-button>
+    <p-button class="p-button-success" icon="pi pi-question-circle" label="Générer le quiz"
+      (onClick)="goToQuiz()"></p-button>
+
+    <!-- 🔗 Bouton Partager -->
+    <p-button icon="pi pi-share-alt" label="Partager" class="p-button-help"
+      (onClick)="openShareDialog('resume', resumeId)">
+    </p-button>
+
+  </div>
+
+</div>

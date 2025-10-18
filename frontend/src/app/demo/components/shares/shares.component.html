@@ -1,0 +1,88 @@
+<div class="card p-6 bg-white rounded-xl shadow-md">
+  <h3 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
+    <i class="pi pi-share-alt text-indigo-500"></i>
+    Partages reçus
+    <span class="ml-2 text-sm text-gray-500">({{ shares.length }})</span>
+  </h3>
+
+  <div *ngIf="shares.length === 0 && !loading" class="text-gray-500 text-center">
+    Aucun partage reçu pour l’instant.
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center py-8">
+    <i class="pi pi-spin pi-spinner text-indigo-500 text-3xl"></i>
+  </div>
+
+  <div *ngFor="let s of shares"
+    class="share-item flex justify-between items-center p-5 mb-4 rounded-lg border bg-white shadow-sm hover:shadow-md transition">
+
+    <!-- INFO -->
+    <div class="flex items-center gap-3">
+      <div class="icon-wrapper">
+        <i *ngIf="s.object_type === 'resume'" class="pi pi-file text-indigo-500 text-xl"></i>
+        <i *ngIf="s.object_type === 'chapter'" class="pi pi-book text-green-500 text-xl"></i>
+        <i *ngIf="s.object_type === 'course'" class="pi pi-folder text-amber-500 text-xl"></i>
+        <i *ngIf="s.object_type === 'quiz'" class="pi pi-question-circle text-purple-500 text-xl"></i>
+      </div>
+
+      <div>
+        <p class="text-gray-800 font-medium">
+          <ng-container *ngIf="s.object_type === 'resume'">
+            Résumé du chapitre <b>{{ s.chapter_title }}</b> du cours <b>{{ s.course_title }}</b>
+          </ng-container>
+          <ng-container *ngIf="s.object_type === 'chapter'">
+            Chapitre <b>{{ s.chapter_title }}</b> du cours <b>{{ s.course_title }}</b>
+          </ng-container>
+          <ng-container *ngIf="s.object_type === 'course'">
+            Cours <b>{{ s.course_title }}</b>
+          </ng-container>
+          <ng-container *ngIf="s.object_type === 'quiz'">
+            Quiz du chapitre <b>{{ s.chapter_title }}</b> du cours <b>{{ s.course_title }}</b>
+          </ng-container>
+
+          <!-- Badge -->
+          <span class="badge" [ngClass]="{
+                  'badge-resume': s.object_type === 'resume',
+                  'badge-chapter': s.object_type === 'chapter',
+                  'badge-course': s.object_type === 'course',
+                  'badge-quiz': s.object_type === 'quiz'
+                }">
+            {{ s.object_type | titlecase }}
+          </span>
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+          Partagé par <span class="font-semibold">{{ s.from_user }}</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="share-actions">
+      <!-- Résumé -->
+      <button *ngIf="s.object_type === 'resume'" pButton icon="pi pi-eye" label="Voir le resume" class="btn-share p-button-info"
+        (click)="viewShare(s.id)">
+      </button>
+
+      <!-- Quiz -->
+      <button *ngIf="s.object_type === 'quiz'" pButton icon="pi pi-question-circle" label="Faire le quiz"
+        class="btn-share p-button-success" (click)="goToQuizFromShare(s)">
+      </button>
+
+      <!-- Cours -->
+      <button *ngIf="s.object_type === 'course'" pButton icon="pi pi-folder-open" label="Voir le cours"
+        class="btn-share p-button-info" (click)="goToCourseFromShare(s)">
+      </button>
+
+      <!-- Chapitre -->
+      <button *ngIf="s.object_type === 'chapter'" pButton icon="pi pi-book" label="Voir le chapitre"
+        class="btn-share p-button-warning" (click)="goToChapterFromShare(s)">
+      </button>
+
+
+      <!-- Supprimer -->
+      <button pButton icon="pi pi-trash" label="Supprimer" class="btn-share p-button-danger"
+        (click)="deleteShare(s.id)">
+      </button>
+    </div>
+
+  </div>
+</div>

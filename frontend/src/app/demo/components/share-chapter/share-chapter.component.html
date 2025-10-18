@@ -1,0 +1,44 @@
+<div class="card p-6 shadow-md rounded-xl bg-white">
+  <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
+    <i class="pi pi-book text-indigo-500"></i>
+    Chapitre partagé
+  </h2>
+
+  <div *ngIf="chapter">
+    <!-- Infos chapitre -->
+    <div class="chapter-card">
+      <div class="chapter-info">
+        <h3 class="chapter-title">{{ chapter.titre }}</h3>
+        <p class="chapter-desc">{{ chapter.description }}</p>
+
+        <!-- Documents -->
+        <div *ngIf="chapter.documents?.length" class="mt-2">
+          <ul class="doc-list">
+            <li *ngFor="let doc of chapter.documents">
+              <i class="pi pi-file-pdf text-red-500 mr-2"></i>
+              <a [href]="doc.supabase_url" target="_blank" class="doc-link">
+                {{ doc.filename }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions flex gap-2 ml-4">
+        <!-- Résumé seulement si existe -->
+        <button *ngIf="chapter.resume"
+                pButton label="Résumé"
+                icon="pi pi-file"
+                class="p-button-sm p-button-info"
+                [routerLink]="['/shares/resume', chapter.resume_id]"
+                [queryParams]="{ quizId: chapter.quiz_id }">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!chapter" class="text-gray-500 italic mt-6">
+    ❌ Aucun détail disponible pour ce chapitre.
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="p-fluid">
+  <div class="field">
+    <label for="user">Utilisateur cible (par email)</label>
+    <p-autoComplete
+      [(ngModel)]="selectedUser"
+      [suggestions]="filteredUsers"
+      (completeMethod)="search($event)"
+      field="email"
+      [forceSelection]="true"
+      placeholder="Entrer un email..."
+    >
+      <ng-template let-user pTemplate="item">
+        {{ user.email }} <span class="text-gray-500">({{ user.nom }})</span>
+      </ng-template>
+    </p-autoComplete>
+  </div>
+
+  <div class="flex justify-content-end gap-2 mt-3">
+    <p-button label="Annuler" icon="pi pi-times" class="p-button-text" (onClick)="cancel()"></p-button>
+    <p-button label="Partager" icon="pi pi-check" [loading]="loading" (onClick)="share()"></p-button>
+  </div>
+</div>

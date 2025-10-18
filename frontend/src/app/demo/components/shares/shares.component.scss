@@ -1,0 +1,64 @@
+.share-item {
+  border: 1px solid #e5e7eb; /* gris clair */
+  border-radius: 0.75rem;    /* arrondi */
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.share-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.share-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.btn-share {
+  min-width: 130px; /* taille identique */
+  justify-content: center;
+}
+
+/* Badges */
+.badge {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  color: #fff;
+}
+
+.badge-resume {
+  background-color: #6366f1;
+}
+.badge-chapter {
+  background-color: #10b981;
+}
+.badge-course {
+  background-color: #f59e0b;
+}
+.badge-quiz {
+  background-color: #8b5cf6;
+}
+.share-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.btn-share {
+  min-width: 120px;              /* même largeur */
+  justify-content: center;
+  border-radius: 8px !important; /* arrondi uniforme */
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease;
+}
+
+.btn-share:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}

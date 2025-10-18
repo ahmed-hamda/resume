@@ -1,0 +1,21 @@
+/* carte */
+.p-card {
+  border: 1px solid #e5e7eb;
+  transition: transform .2s, box-shadow .2s;
+  background: #fff;
+  &:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+}
+
+/* ✅ image de cours : ratio constant */
+.course-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;     /* garde la même hauteur pour toutes les images */
+  object-fit: cover;
+  border-radius: .5rem;
+  background: #f8fafc;
+}
+
+/* Fallback anciens navigateurs */
+@supports not (aspect-ratio: 1) {
+  .course-img { height: 12rem; } /* ~ h-48 */
+}

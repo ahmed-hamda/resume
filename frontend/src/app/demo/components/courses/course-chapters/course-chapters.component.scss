@@ -1,0 +1,94 @@
+.chapter-card-shared {
+  background: #fff;
+  border: 1px solid #d1d5db;   /* bordure gris clair */
+  border-radius: 12px;
+  padding: 20px 24px;          /* plus d’espace interne */
+  margin-bottom: 16px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: #6366f1;
+    box-shadow: 0 6px 14px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.chapter-title {
+  font-size: 1.25rem;     /* titre plus grand */
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 0.5rem;
+}
+
+.chapter-desc {
+  font-size: 1rem;        /* description plus lisible */
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+
+.chapter-doc {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.pdf-icon {
+  color: #e63946; /* rouge vif */
+  font-size: 1.1rem;
+}
+
+.chapter-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+
+.chapter-card-shared {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: #6366f1;
+    box-shadow: 0 6px 14px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.chapter-header {
+  display: flex;
+  justify-content: space-between; /* ✅ met infos à gauche, boutons à droite */
+  align-items: center;
+}
+
+.chapter-info {
+  flex: 1; /* occupe la largeur restante */
+}
+
+.chapter-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end; /* ✅ force à droite */
+}
+.loading-spinner {
+  border: 3px solid #f3f3f3;        /* gris clair */
+  border-top: 3px solid #4f46e5;    /* indigo (PrimeNG theme) */
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,53 @@
+<div class="card p-6 shadow-md rounded-xl bg-white">
+    <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
+        <i class="pi pi-book text-indigo-500"></i>
+        Cours partagé
+    </h2>
+
+    <p class="text-lg font-semibold text-gray-800 mb-4">
+        {{ course?.titre }}
+    </p>
+
+    <div *ngIf="course?.chapters?.length">
+        <div *ngFor="let ch of course.chapters" class="chapter-card flex justify-between items-center">
+
+            <!-- Infos du chapitre -->
+            <div class="chapter-info">
+                <h3 class="chapter-title">{{ ch.titre }}</h3>
+                <p class="chapter-desc">{{ ch.description }}</p>
+
+                <!-- Documents -->
+                <div *ngIf="ch.documents?.length" class="mt-2">
+                    <ul class="doc-list">
+                        <li *ngFor="let doc of ch.documents">
+                            <i class="pi pi-file-pdf text-red-500 mr-2"></i>
+                            <a [href]="doc.supabase_url" target="_blank" class="doc-link">
+                                {{ doc.filename }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+           <div class="actions flex gap-2 ml-4">
+  <!-- Bouton Résumé uniquement -->
+  <button *ngIf="ch.resume" 
+          pButton label="Résumé" 
+          icon="pi pi-file" 
+          class="p-button-sm p-button-info"
+          [routerLink]="['/shares/resume', ch.resume_id]"
+          [queryParams]="{ quizId: ch.quiz_id }">
+  </button>
+</div>
+
+
+
+
+        </div>
+    </div>
+
+    <div *ngIf="!course?.chapters?.length" class="text-gray-500 italic mt-6">
+        Aucun chapitre disponible pour ce cours.
+    </div>
+</div>

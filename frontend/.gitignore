@@ -1,0 +1,43 @@
+# ---------- Node / Angular ----------
+**/node_modules/
+**/dist/
+**/.angular/
+npm-debug.log*
+yarn-error.log*
+.angular/
+tmp/
+out-tsc/
+bazel-out/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+
+# Tests / Coverage
+coverage/
+karma.conf.js.map
+
+# Angular misc (si générés)
+src/assets/demo/styles/badges.css
+src/assets/layout/styles/theme/designer
+
+# ---------- Python / Flask ----------
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+instance/
+
+# Alembic caches (on garde les migrations!)
+migrations/**/__pycache__/
+
+# Env files (ne jamais commiter de secrets)
+.env
+.env.*
+backend/.env

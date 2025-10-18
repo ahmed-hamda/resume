@@ -1,0 +1,66 @@
+.quiz-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  max-width: 960px;
+  margin: 1.5rem auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      margin: 0 0 .5rem 0;
+    }
+  }
+
+  .muted { color: #6b7280; }
+  .error { color: #e74c3c; }
+
+  .question {
+    border-top: 1px solid #eef0f5;
+    padding-top: 1rem;
+    margin-top: 1rem;
+
+    h3 { margin: 0 0 .5rem 0; }
+
+    .bool-btns {
+      display: flex;
+      gap: .75rem;
+
+      ::ng-deep .p-button.selected {
+        background: #6366f1;
+        border-color: #6366f1;
+        color: #fff;
+      }
+    }
+
+    ul { list-style: none; padding-left: 0; }
+    li { margin: .4rem 0; }
+
+    .result {
+      margin-top: .5rem;
+
+      .badge {
+        display: inline-block;
+        padding: .15rem .5rem;
+        border-radius: 6px;
+        font-size: .9rem;
+        &.ok { background: #e9fbe9; color: #1f8f1f; }
+        &.ko { background: #fdeaea; color: #c0392b; }
+      }
+      .explain { margin-top: .25rem; color: #4b5563; }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+
+    .score { color: #374151; }
+  }
+}

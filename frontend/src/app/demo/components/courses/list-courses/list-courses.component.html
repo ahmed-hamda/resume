@@ -1,0 +1,118 @@
+<div class="card">
+  <h5>📚 Liste des cours</h5>
+
+  <div class="flex justify-end mb-3">
+    <button pButton label=" Créer un cours" icon="pi pi-plus" class="p-button-success"
+            (click)="displayCreateDialog = true"></button>
+  </div>
+
+  <div class="grid grid-nogutter">
+  <div class="col-12 md:col-4 p-2" *ngFor="let course of courses">
+    <div class="card shadow-2 p-3 border-round-xl relative">
+      <!-- Bandeau catégorie -->
+      <div class="flex justify-between mb-2">
+        <span class="text-gray-500 font-medium">
+          <i class="pi pi-tag mr-1"></i>
+          <!-- ✅ on affiche le nom depuis la liste des catégories chargée -->
+          {{ getCategoryName(course.category_id) || '—' }}
+        </span>
+      </div>
+
+      <div class="text-center">
+        <!-- ✅ image : ratio uniforme + fallback image de catégorie -->
+        <img
+          [src]="course.image_url || getCategoryImageUrl(course.category_id) || 'assets/images/default-course.png'"
+          [alt]="course.titre"
+          class="course-img shadow mb-3" />
+
+        <h4 class="text-xl font-bold mb-1">{{ course.titre }}</h4>
+
+        <!-- ✅ actions bien espacées (gap) -->
+        <div class="flex flex-wrap justify-center gap-3 mt-3">
+          <button pButton icon="pi pi-eye" label="Chapitres"
+                  class="p-button-rounded p-button-info p-button-sm"
+                  (click)="goToChapters(course.id)"></button>
+
+          <button pButton icon="pi pi-pencil" label="Modifier"
+                  class="p-button-rounded p-button-success p-button-sm"
+                  (click)="openEditDialog(course)"></button>
+
+          <button pButton icon="pi pi-trash" label="Supprimer"
+                  class="p-button-rounded p-button-danger p-button-sm"
+                  (click)="deleteCourse(course.id)"></button>
+
+          <!-- ✅ bouton Partager a le même espacement grâce à gap-3 -->
+          <button pButton icon="pi pi-share-alt" label="Partager"
+                  class="p-button-rounded p-button-help p-button-sm"
+                  (click)="openShareDialog('course', course.id)"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ✅ Dialog Modifier (ajout catégorie + image, même style) -->
+  <p-dialog header="Modifier le cours" [(visible)]="displayEditDialog" [modal]="true" [style]="{ width: '400px' }">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="titre">Titre</label>
+        <input id="titre" type="text" pInputText [(ngModel)]="editCourseData.titre" required />
+      </div>
+
+      <div class="p-field">
+        <label for="editCategory">Catégorie</label>
+        <p-dropdown
+          id="editCategory"
+          [options]="categories"
+          optionLabel="name"
+          optionValue="id"
+          [(ngModel)]="editCourseData.category_id"
+          placeholder="Choisir une catégorie">
+        </p-dropdown>
+      </div>
+
+      
+
+      <div class="flex justify-end gap-2 mt-3">
+        <button pButton label="Annuler" icon="pi pi-times" class="p-button-secondary"
+                (click)="displayEditDialog = false"></button>
+
+        <button pButton label="Enregistrer" icon="pi pi-check" class="p-button-success"
+                (click)="saveUpdatedCourse()"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <!-- ✅ Dialog Créer (ajout catégorie + image, même style) -->
+  <p-dialog header="Créer un nouveau cours" [(visible)]="displayCreateDialog" [modal]="true" [style]="{ width: '400px' }">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="newTitre">Titre</label>
+        <input id="newTitre" type="text" pInputText [(ngModel)]="newCourse.titre" required />
+      </div>
+
+      <div class="p-field">
+        <label for="newCategory">Catégorie</label>
+        <p-dropdown
+          id="newCategory"
+          [options]="categories"
+          optionLabel="name"
+          optionValue="id"
+          [(ngModel)]="newCourse.category_id"
+          placeholder="Choisir une catégorie">
+        </p-dropdown>
+      </div>
+
+      
+
+      <div class="flex justify-end gap-2 mt-3">
+        <button pButton label="Annuler" icon="pi pi-times" class="p-button-secondary"
+                (click)="displayCreateDialog = false"></button>
+
+        <button pButton label="Créer" icon="pi pi-check" class="p-button-success"
+                (click)="saveNewCourse()"></button>
+      </div>
+    </div>
+  </p-dialog>
+</div>

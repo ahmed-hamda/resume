@@ -1,0 +1,61 @@
+<div *ngIf="!loading">
+  <!-- ✅ Résumé -->
+  <div *ngIf="type === 'resume'" class="resume-card">
+    <h2 class="title">📖 Résumé partagé</h2>
+
+    <markdown *ngIf="content" class="markdown-body" [data]="content"></markdown>
+
+    <div class="actions" *ngIf="content">
+      <p-button icon="pi pi-copy" label="Copier" (onClick)="copy()"></p-button>
+      <p-button class="p-button-secondary" icon="pi pi-download" label="Télécharger .md"
+                (onClick)="download()"></p-button>
+    </div>
+  </div>
+
+  <!-- ✅ Quiz -->
+  <div *ngIf="type === 'quiz'" class="card p-6 shadow-md rounded-xl bg-white">
+    <h3 class="text-xl font-bold mb-4">📝 {{ quiz?.title || 'Quiz partagé' }}</h3>
+
+    <ng-container *ngIf="quiz?.questions?.length; else noQuiz">
+      <form (ngSubmit)="submitQuiz()">
+        <div *ngFor="let q of quiz.questions; let qi = index" class="mb-5">
+          <p class="font-medium mb-2">
+            <span class="text-indigo-600">Q{{ qi + 1 }}.</span>
+            {{ q.text || q.question }}
+          </p>
+
+          <div class="pl-2 space-y-2">
+            <label class="flex items-center gap-2"
+                   *ngFor="let opt of (q.options || q.answers); let oi = index">
+              <input
+                [type]="isMultiple(q) ? 'checkbox' : 'radio'"
+                [name]="'q' + qi"
+                [checked]="isSelected(qi, oi)"
+                (change)="toggleSelect(qi, oi, isMultiple(q))">
+              <span>{{ displayOption(opt) }}</span>
+            </label>
+          </div>
+        </div>
+
+        <button pButton type="submit" label="Soumettre" class="p-button-success"></button>
+      </form>
+
+      <div *ngIf="quizResult" class="mt-4 p-3 bg-green-50 border border-green-200 rounded">
+        <p class="font-medium">
+          ✅ Score : {{ quizResult.score }} / {{ quizResult.total }}
+          <span class="ml-2 text-sm text-gray-600">({{ quizResult.correct }} bonnes réponses)</span>
+        </p>
+      </div>
+    </ng-container>
+
+    <ng-template #noQuiz>
+      <div class="text-gray-500 italic">❌ Ce partage ne contient pas de questions.</div>
+    </ng-template>
+  </div>
+
+  <!-- ❌ Si rien trouvé -->
+  <div *ngIf="!type" class="text-red-500 font-semibold">❌ Contenu introuvable</div>
+</div>
+
+<!-- Loader -->
+<p *ngIf="loading" class="muted">Chargement du contenu…</p>

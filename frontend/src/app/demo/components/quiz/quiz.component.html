@@ -1,0 +1,62 @@
+<div class="card p-6 shadow-md rounded-xl bg-white">
+  <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
+    <i class="pi pi-question-circle text-indigo-500"></i>
+    Quiz
+    <span class="ml-2 text-sm text-gray-500">({{ total }} questions)</span>
+  </h2>
+
+  <!-- Loader -->
+  <p *ngIf="loading" class="text-gray-500 italic">Chargement du quiz…</p>
+  <p *ngIf="error" class="text-red-500 font-semibold">{{ error }}</p>
+
+  <!-- Questions -->
+  <ng-container *ngIf="!loading && !error">
+    <div *ngFor="let q of questions; let qi = index; trackBy: trackByIndex"
+         class="question mb-6 p-4 border rounded-lg shadow-sm bg-gray-50 hover:shadow transition">
+
+      <div class="q-head mb-3 flex items-start">
+        <span class="q-index text-indigo-600 font-bold mr-2">{{ qi + 1 }}.</span>
+        <span class="q-text font-medium">{{ q.text }}</span>
+      </div>
+
+      <!-- BOOLEAN -->
+      <div *ngIf="q.type === 'boolean'" class="flex gap-3">
+        <button pButton type="button" label="Vrai"
+          class="p-button-success"
+          [ngClass]="{'p-button-outlined': (answers[q.id]?.[0] ?? -1) !== 1}"
+          (click)="selectBooleanGeneric(q, true)">
+        </button>
+        <button pButton type="button" label="Faux"
+          class="p-button-danger"
+          [ngClass]="{'p-button-outlined': (answers[q.id]?.[0] ?? -1) !== 0}"
+          (click)="selectBooleanGeneric(q, false)">
+        </button>
+      </div>
+
+      <!-- SINGLE / MULTI similaire -->
+
+      <!-- Feedback -->
+      <div class="mt-3 text-sm" *ngIf="submitted">
+        <span [ngClass]="okFor(q.id) ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+          {{ okFor(q.id) ? '✅ Correct' : '❌ Incorrect' }}
+        </span>
+        <p *ngIf="detailsMap[q.id]?.explanation" class="text-gray-600 mt-1">
+          {{ detailsMap[q.id]?.explanation }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3 justify-end border-t pt-4 mt-6">
+      <p-button label="Soumettre" icon="pi pi-check" (onClick)="submit()" [disabled]="submitted" class="p-button-rounded p-button-success"></p-button>
+      <p-button label="Réinitialiser" icon="pi pi-refresh" (onClick)="reset()" class="p-button-rounded p-button-secondary"></p-button>
+      <p-button *ngIf="chapterId && !isShared" label="Régénérer" icon="pi pi-refresh" (onClick)="loadQuizByChapter(chapterId, true)" class="p-button-rounded p-button-help"></p-button>
+      <p-button *ngIf="!isShared" icon="pi pi-share-alt" label="Partager ce quiz" (onClick)="openShareDialog('quiz', quizId)" class="p-button-rounded p-button-info"></p-button>
+    </div>
+
+    <!-- Score -->
+    <div *ngIf="submitted" class="mt-4 text-lg font-bold text-indigo-700">
+      Score: {{ score }}% ({{ correctCount }}/{{ total }})
+    </div>
+  </ng-container>
+</div>

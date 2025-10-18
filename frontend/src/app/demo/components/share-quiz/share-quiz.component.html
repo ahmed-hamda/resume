@@ -1,0 +1,116 @@
+<div class="card p-6 shadow-md rounded-xl bg-white">
+  <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center gap-2">
+    <i class="pi pi-question-circle text-indigo-500"></i>
+    Quiz
+    <span class="ml-2 text-sm text-gray-500">({{ total }} questions)</span>
+  </h2>
+
+  <!-- Loader -->
+  <p *ngIf="loading" class="text-gray-500 italic">Chargement du quiz…</p>
+
+  <!-- Erreur -->
+  <p *ngIf="!loading && error" class="text-red-500 font-semibold">{{ error }}</p>
+
+  <!-- Contenu -->
+  <ng-container *ngIf="!loading && !error">
+    <div *ngFor="let q of questions; let qi = index" class="question mb-6 p-4 border rounded-lg shadow-sm bg-gray-50 hover:shadow transition">
+      <div class="q-head mb-3 flex items-start">
+        <span class="q-index text-indigo-600 font-bold mr-2">{{ qi + 1 }}.</span>
+        <span class="q-text font-medium">{{ q.text }}</span>
+      </div>
+
+      <!-- BOOLEAN -->
+      <div *ngIf="q.type === 'boolean'" class="flex gap-3">
+        <button
+          pButton
+          type="button"
+          label="Vrai"
+          class="p-button-success"
+          [ngClass]="{'p-button-outlined': (answers[q.id]?.[0] ?? -1) !== 1}"
+          (click)="selectBoolean(q, true)">
+        </button>
+
+        <button
+          pButton
+          type="button"
+          label="Faux"
+          class="p-button-danger"
+          [ngClass]="{'p-button-outlined': (answers[q.id]?.[0] ?? -1) !== 0}"
+          (click)="selectBoolean(q, false)">
+        </button>
+      </div>
+
+      <!-- SINGLE -->
+      <ul *ngIf="q.type === 'single' && q.options?.length" class="mt-2">
+        <li *ngFor="let opt of q.options; let oi = index">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              [name]="'q_' + q.id"
+              [checked]="isSelected(q, oi)"
+              (change)="selectSingle(q, oi)"
+            />
+            <span>{{ opt }}</span>
+          </label>
+        </li>
+      </ul>
+
+      <!-- MULTI -->
+      <ul *ngIf="q.type === 'multi' && q.options?.length" class="mt-2">
+        <li *ngFor="let opt of q.options; let oi = index">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              [checked]="isSelected(q, oi)"
+              (change)="toggleMulti(q, oi)"
+            />
+            <span>{{ opt }}</span>
+          </label>
+        </li>
+      </ul>
+
+      <!-- Feedback -->
+      <div class="mt-3 text-sm" *ngIf="submitted">
+        <span
+          [ngClass]="detailsMap[q.id]?.ok ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+          {{ detailsMap[q.id]?.ok ? '✅ Correct' : '❌ Incorrect' }}
+        </span>
+        <p *ngIf="detailsMap[q.id]?.explanation" class="text-gray-600 mt-1">
+          {{ detailsMap[q.id]?.explanation }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3 justify-end border-t pt-4 mt-6">
+      <p-button
+        label="Soumettre"
+        icon="pi pi-check"
+        (onClick)="submit()"
+        [disabled]="submitted || !questions.length"
+        class="p-button-rounded p-button-success">
+      </p-button>
+
+      <!-- ✅ Bouton Réinitialiser (même style que ton composant) -->
+      <p-button
+        label="Réinitialiser"
+        icon="pi pi-refresh"
+        (onClick)="reset()"
+        class="p-button-rounded p-button-secondary">
+      </p-button>
+    </div>
+
+    <!-- Score -->
+    <div *ngIf="submitted" class="mt-4 text-lg font-bold text-indigo-700">
+      <!-- si l'API renvoie "score" en %, on l’affiche ; sinon on calcule avec correctCount/total -->
+      <ng-container *ngIf="result?.score !== undefined; else ratio">
+        Score: {{ result?.score }}%
+        <span class="ml-2 text-gray-600 text-base">({{ correctCount }}/{{ total }})</span>
+      </ng-container>
+      <ng-template #ratio>
+        Score: {{ (correctCount * 100 / total) | number:'1.0-0' }}%
+        <span class="ml-2 text-gray-600 text-base">({{ correctCount }}/{{ total }})</span>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

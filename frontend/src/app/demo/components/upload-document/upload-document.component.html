@@ -1,0 +1,30 @@
+<div class="card p-3">
+  <h5>📄 Upload Document</h5>
+
+  <div class="p-field mb-2">
+    <label>Description</label>
+    <input type="text" pInputText [(ngModel)]="description" placeholder="Description du fichier" />
+  </div>
+
+  <div class="p-field mb-2">
+    <input type="file" (change)="onFileSelected($event)" />
+  </div>
+
+  <button
+    pButton
+    label="Uploader"
+    icon="pi pi-upload"
+    class="p-button-success"
+    (click)="upload()"
+    [disabled]="!selectedFile"
+  ></button>
+
+  <hr />
+
+  <h6>📂 Documents existants</h6>
+  <ul>
+    <li *ngFor="let doc of documents">
+      <a [href]="doc.url" target="_blank">{{ doc.filename }}</a> - {{ doc.description }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,22 @@
+<div class="resume-card">
+  <h2 class="title">📖 Résumé partagé</h2>
+
+  <p *ngIf="loading" class="muted">Chargement...</p>
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <markdown *ngIf="!loading && !error && resumeText" class="markdown-body" [data]="resumeText"></markdown>
+
+  <div class="actions" *ngIf="resumeText">
+    <p-button icon="pi pi-copy" label="Copier" (onClick)="copy()"></p-button>
+    <p-button class="p-button-secondary" icon="pi pi-download" label="Télécharger .md"
+              (onClick)="download()"></p-button>
+
+    <!-- ✅ Bouton Quiz uniquement si quizId existe -->
+    <p-button *ngIf="quizId"
+              class="p-button-success"
+              icon="pi pi-question-circle"
+              label="Faire le quiz"
+              (onClick)="goToQuiz()">
+    </p-button>
+  </div>
+</div>
