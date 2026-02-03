@@ -1,33 +1,32 @@
-
 # Resume App
 
 ## 📌 Description
-**Resume App** est une application web full-stack permettant de générer automatiquement des **résumés**, des **quiz** et des **flashcards** à partir de contenus pédagogiques (PDF, documents, images).  
-Le projet est réalisé dans un **cadre académique** et combine des techniques d’**intelligence artificielle (NLP)** avec une architecture web moderne.
+**Resume App** is a full-stack web application that automatically generates **summaries** and **quizzes** from educational content (PDFs, documents, images).  
+The project is developed in an **academic context** and combines **Artificial Intelligence (NLP)** techniques with a modern web architecture.
 
 ---
 
-## 🏗️ Architecture du projet
+## 🏗️ Project Architecture
 ```
 
 resume/
 │
-├── backend/    # API Backend (Flask / IA / NLP)
-├── frontend/   # Application Frontend (Angular)
+├── backend/    # Backend API (Flask / AI / NLP)
+├── frontend/   # Frontend Application (Angular)
 └── .gitignore
 
 ````
 
 ---
 
-## ⚙️ Technologies utilisées
+## ⚙️ Technologies Used
 
 ### Backend
 - Python  
 - Flask  
 - SQLAlchemy  
 - JWT Authentication  
-- NLP / IA (génération automatique)
+- NLP / AI (automatic generation)
 
 ### Frontend
 - Angular  
@@ -37,32 +36,32 @@ resume/
 
 ---
 
-## 🚀 Fonctionnalités principales
-- Authentification des utilisateurs (Étudiant / Enseignant)
-- Importation de fichiers pédagogiques
-- Génération automatique :
-  - Résumé
+## 🚀 Main Features
+- User authentication (Student / Teacher)
+- Educational file upload
+- Automatic generation of:
+  - Summary
   - Quiz
   - Flashcards
-- Consultation et gestion des contenus générés
-- Interface web moderne et responsive
+- Viewing and managing generated content
+- Modern and responsive web interface
 
 ---
 
 ## 🎬 Demo
 
-### ▶️ Vidéo de démonstration
-![Demo Resume App](demo/demo.gif)
+### ▶️ Demo Video
+![Resume App Demo](demo/demo.gif)
 
-### 🖼️ Captures d’écran
-Les captures de démonstration sont disponibles dans le dossier `/demo` :
-- Interface de connexion
-- Importation de fichiers
-- Résumé généré automatiquement
+### 🖼️ Screenshots
+Demo screenshots are available in the `/demo` folder:
+- Login interface
+- File upload
+- Automatically generated summary
 
 ---
 
-## 🛠️ Installation locale
+## 🛠️ Local Installation
 
 ### Backend
 ```bash
@@ -83,9 +82,8 @@ ng serve
 
 ---
 
-## 👤 Auteur
+## 👤 Author
 
 **Ahmed Hamda**
-Étudiant ingénieur – ISIMS
-GitHub : [https://github.com/ahmed-hamda](https://github.com/ahmed-hamda)
-
+Engineering Student – ISIMS
+GitHub: [https://github.com/ahmed-hamda](https://github.com/ahmed-hamda)
